@@ -37,6 +37,10 @@ const {userName,password} = request.body
 
 // Sign Up
 export const signUp = async (request, response) => { 
+
+    console.log(request.body)
+    console.log(request.file)
+    
     const {userName,email,password} = request.body
 
     if (!userName || !password || !email) {
