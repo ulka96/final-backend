@@ -16,13 +16,13 @@ const {userName,password} = request.body
     try {
         const user = await User.findOne({ userName })
         if (!user) {
-            return response.status(401).send({message: "Wrong password or email"})
+            return response.status(401).send({message: "Wrong password or username"})
         }
         
         // let's compare password
         const isPasswordValid = await bcrypt.compare(password, user?.password)
         if (!isPasswordValid) {
-            return response.status(401).send({message: "Wrong password or email"})
+            return response.status(401).send({message: "Wrong password or username"})
         }
 
     generateTokenAndSetCookie(user._id, response)
