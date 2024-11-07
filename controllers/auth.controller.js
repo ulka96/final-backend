@@ -6,9 +6,10 @@ import User from "../models/user.model.js"
 // Utils
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js"
 
+
 // Sign In
 export const signIn = async (request, response) => { 
-const {userName,password} = request.body
+    const { userName, password } = request.body
 
     if (!userName || !password) {
     return response.status(400).send({message: "Username and password are required"})
@@ -20,7 +21,7 @@ const {userName,password} = request.body
         }
         
         // let's compare password
-        const isPasswordValid = await bcrypt.compare(password, user?.password)
+        const isPasswordValid = await bcrypt.compare(password, user.password)
         if (!isPasswordValid) {
             return response.status(401).send({message: "Wrong password or username"})
         }
@@ -63,7 +64,7 @@ export const signUp = async (request, response) => {
             userName,
             email,
             password: hashedPassword,
-            profilePic: request.file ? request.file.path : null,
+            profilePic: request.file? request.file.path: '/images/user.png',
         }
 
         const createdUser = await User.create(newUser)

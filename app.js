@@ -6,6 +6,8 @@ import multer from "multer";
 import path from "path"
 import connectToDatabase from "./config/connect.js";
 
+import { fileURLToPath } from 'url';
+
 // Routes
 import UserRoute from "./routes/user.routes.js";
 import AuthRoute from "./routes/auth.routes.js"
@@ -28,16 +30,13 @@ dotenv.config();
 server.use(cookieParser());
 server.use(express.static("./"))
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+server.use('./ProfilePictures', express.static(path.join(__dirname, './ProfilePictures')));
+
 // Storages
-const profilePictureStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './ProfilePictures')
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname))
-  }
-})
+
 
 const productPictureStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -50,20 +49,20 @@ const productPictureStorage = multer.diskStorage({
 })
 
 // Uploads
-const profilePictureUpload = multer({ storage: profilePictureStorage })
 const productPictureUpload = multer({ storage: productPictureStorage })
 
 const PORT = process.env.PORT;
 
 server.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: ["http://localhost:5173"], 
   credentials: true 
-}));
+})
+);
 
 
 // Routes
 server.use("/api/users", UserRoute);
-server.use("/api/auth", profilePictureUpload.single("profilePic"), AuthRoute)
+server.use("/api/auth", AuthRoute)
 server.use("/api/products",productPictureUpload.single("productPic"), ProductRouter);
 // server.use("/api/new-arrivals", NewArrivalsRouter);
 // server.use("/api/top-sellers", TopSellersRouter);
