@@ -29,6 +29,7 @@ export const getUser = async (request, response) => {
     }
   };
 
+
 // Delete a user by ID
 export const deleteUser = async (request, response) => {
     try {

@@ -1,8 +1,6 @@
 import express from "express"
 
 import { signUp, signIn, logout } from "../controllers/auth.controller.js"
-import profilePictureUpload from "../multer/profileConfig.js"
-
 const router = express.Router()
 
 
@@ -10,10 +8,11 @@ const router = express.Router()
 router.post("/sign-in", signIn)
 
 // Sign Up
-router.post("/sign-up",profilePictureUpload.single("profilePic"), signUp)
+router.post("/sign-up", signUp)
 
 // Logout
 router.post("/log-out", logout)
+
 
 
 export default router

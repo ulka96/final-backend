@@ -28,7 +28,8 @@ export const signIn = async (request, response) => {
 
     generateTokenAndSetCookie(user._id, response)
         
-    response.status(200).send({user, message: "Sign in successfully"})
+        response.status(200).send({ user, message: "Sign in successfully" })
+
     }    
     catch (error) {
         console.error(error)
@@ -72,6 +73,7 @@ export const signUp = async (request, response) => {
             return response.status(400).send({ error: "User not created" })
         }
 
+
         generateTokenAndSetCookie(createdUser._id, response)
 
         response.status(201).send({user: createdUser, message: "User successfully created"})
@@ -89,3 +91,5 @@ export const logout = async (request, response) => {
     })
     response.status(200).send({message: "Logged out successfully"})
 }
+
+
