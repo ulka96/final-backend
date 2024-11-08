@@ -65,8 +65,10 @@ export const signUp = async (request, response) => {
             userName,
             email,
             password: hashedPassword,
-            profilePic: request.file? request.file.path: '/images/user.png',
+            profilePic: request.file ? request.file.path : null,
         }
+
+
 
         const createdUser = await User.create(newUser)
         if (!createdUser) {
