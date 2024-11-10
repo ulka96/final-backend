@@ -34,7 +34,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 server.use('./ProfilePictures', express.static(path.join(__dirname, './ProfilePictures')));
-
+server.use('./ProductPictures', express.static(path.join(__dirname, './ProductPictures')));
 // Storages
 const productPictureStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -64,7 +64,7 @@ const profilePictureUpload = multer({ storage: profilePictureStorage });
 const PORT = process.env.PORT;
 
 server.use(cors({
-  origin: ["http://localhost:5173"], 
+  origin: ["http://localhost:5173", "http://localhost:5174"],
   credentials: true 
 })
 );
@@ -74,17 +74,19 @@ server.use(cors({
 server.use("/api/users", UserRoute);
 server.use("/api/auth", profilePictureUpload.single("profilePic"), AuthRoute)
 server.use("/api/products",productPictureUpload.single("productPic"), ProductRouter);
+// server.use("/api/categories", CategoryRouter);
+// server.use("/api/colors", ColorRouter)
+
+
 // server.use("/api/new-arrivals", NewArrivalsRouter);
 // server.use("/api/top-sellers", TopSellersRouter);
-// server.use("/api/categories", CategoryRouter);
 // server.use("/api/contact", ContactRouter);
 // server.use("/api/faq", FaqRouter)
 // server.use("/api/common-page", CommonRouter)
 // server.use("/api/new-arrivals-all", NewArrivalsRouterAll)
 // server.use("/api/top-sellers-all", TopSellerRouterAll)
 
-// server.use("/api/sizes", SizeRouter)
-// server.use("/api/colors", ColorRouter)
+
 
 server.listen(PORT, () => {
   console.log(`Server is listening on PORT: ${PORT}`);

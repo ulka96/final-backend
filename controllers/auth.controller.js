@@ -69,7 +69,6 @@ export const signUp = async (request, response) => {
         }
 
 
-
         const createdUser = await User.create(newUser)
         if (!createdUser) {
             return response.status(400).send({ error: "User not created" })

@@ -1,16 +1,5 @@
 import mongoose from "mongoose";
 
-const stockItem = mongoose.Schema({
-    quantity: {
-        type: Number,
-        required: true,
-    },
-    color: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Color",
-        required: true,
-    }
-})
 
 const ProductSchema = mongoose.Schema({
     title: {
@@ -22,8 +11,7 @@ const ProductSchema = mongoose.Schema({
         required: true,
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
+        type: String,
         required: true,
     },
     slug: {
@@ -41,18 +29,25 @@ const ProductSchema = mongoose.Schema({
     }, 
     productPic: {
         type: String,
-        required: true, 
+        required: true,
     }, 
     material: {
         type: String,
         required: true, 
     }, 
-    reviews: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Review",
-        required: true,
-    }],
-    stock: [stockItem],
+    quantity: {
+        type: Number,
+        required: true, 
+    },
+    color: {
+        type: String,
+        required: true, 
+    },
+    rating: {
+        type: String,
+        required: true, 
+    },
+    
 })
 
 

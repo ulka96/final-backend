@@ -18,49 +18,58 @@ export const getSingleProduct = async (request, response) => {
 
 //add a single product
 export const addSingleProduct = async (request, response) => {
-    const { title, price, category, slug, sku, description, color, material, quantity } = request.body
-    const { path } = request.file
-    //check empty values
-    if (!title
-        || !price
-        || !category
-        || !slug
-        || !sku
-        || !description
-        || !color
-        || !material
-        || !quantity
-        || !path) {
-        return response.status(400).send({ error: "Please fill all required fields" })
-    }
-    //check existing specific product
-    const existingProduct = await Product.findOne({ sku })
-    .populate("stock.color")
-    const givenColor = await Color.findById(color)
-    
+    console.log(request.body);
+    console.log(request.file);
 
-    if (existingProduct) {
-        const existingStockItem = existingProduct.stock.find(
-            stockItem => stockItem.color.name === givenColor.name)
-        if (existingStockItem) {
-            existingStockItem.quantity += +quantity;
-        } else {
-            existingProduct.stock.push({ color, quantity });
-        }
-        await existingProduct.save();
-        return response.status(existingStockItem ? 200 : 201).send(existingProduct);
-    }
-
-    const newProduct = await Product.create({
+    const {
         title,
         price,
         category,
         slug,
         sku,
-        material,
         description,
-        stock: [{ color, quantity }],
-        productPic: path
-    })
-    response.status(201).send(newProduct)
-} 
+        color,
+        material,
+        rating,
+        quantity
+    } = request.body;
+    
+    const productPic = request.file ? request.file.path : null;
+
+    // Check if the image was uploaded
+    if (!productPic) {
+        return response.status(400).json({ error: "Product image is required" });
+    }
+
+    // Check for empty required fields
+    if (!title || !price || !category || !slug || !sku || !description || !color || !material || !quantity || !rating) {
+        return response.status(400).json({ error: "Please fill all required fields" });
+    }
+
+    try {
+        // Check if a product with the same SKU already exists
+        const existingProduct = await Product.findOne({ sku });
+        if (existingProduct) {
+            return response.status(400).json({ error: "Product with this SKU already exists" });
+        }
+
+        // Create a new product
+        const newProduct = await Product.create({
+            title,
+            price,
+            category,
+            slug,
+            sku,
+            description,
+            color,
+            material,
+            rating,
+            quantity,
+            productPic
+        });
+
+        return response.status(201).json(newProduct);
+    } catch (error) {
+        return response.status(500).json({ error: "Server error" });
+    }
+};
