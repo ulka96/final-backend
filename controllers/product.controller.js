@@ -73,3 +73,48 @@ export const addSingleProduct = async (request, response) => {
         return response.status(500).json({ error: "Server error" });
     }
 };
+
+
+// Delete product
+export const deleteProduct = async (request, response) => {
+    const { productId } = request.params;
+  
+    try {
+      const deletedProduct = await Product.findByIdAndDelete(productId);
+  
+      if (!deletedProduct) {
+        return response.status(404).send({ message: "Product not found" });
+      }
+  
+      response.status(200).send({ deletedProduct });
+    } catch (error) {
+      response.status(500).send({ error });
+    }
+};
+  
+// Edit product
+
+export const updateProduct = async (req, res) => {
+    const { productId } = req.params;
+    try {
+      // Check if a new image file was uploaded
+      const updatedData = req.body;
+      if (req.file) {
+        updatedData.productPic = req.file.path; // Set the path for the new image
+      }
+  
+      const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, {
+        new: true,
+      });
+  
+      if (!updatedProduct) {
+        return res.status(404).send({ message: "Product not found" });
+      }
+  
+      res.status(200).send({ updatedProduct });
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+  
+  
