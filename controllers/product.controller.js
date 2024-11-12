@@ -18,10 +18,8 @@ export const getSingleProduct = async (request, response) => {
 
 //add a single product
 export const addSingleProduct = async (request, response) => {
-    console.log(request.body);
-    console.log(request.file);
 
-    const {
+  const {
         title,
         price,
         category,

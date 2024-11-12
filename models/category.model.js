@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 const categorySchema = mongoose.Schema({
-    name: {
+    title: {
+        type: String,
+        required: true,
+    },
+    categoryPic: {
         type: String,
         required: true,
     },
