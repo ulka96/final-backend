@@ -10,6 +10,14 @@ const ProductSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
+    discountedPrice: {
+        type: Number,
+        required: true,
+    },
+    discount: {
+        type: Number,
+        required: true,
+    },
     category: {
         type: String,
         required: true,
@@ -40,15 +48,18 @@ const ProductSchema = mongoose.Schema({
         required: true, 
     },
     color: {
-        type: String,
+        type: [String],
         required: true, 
     },
     rating: {
         type: String,
         required: true, 
     },
+    newArrival: {
+        type: Boolean,
+        required: false,
+      },
 
-    
 })
 
 

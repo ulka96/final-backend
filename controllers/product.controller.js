@@ -22,6 +22,9 @@ export const addSingleProduct = async (request, response) => {
   const {
         title,
         price,
+        discountedPrice,
+        discount,
+        newArrival,
         category,
         slug,
         sku,
@@ -40,7 +43,7 @@ export const addSingleProduct = async (request, response) => {
     }
 
     // Check for empty required fields
-    if (!title || !price || !category || !slug || !sku || !description || !color || !material || !quantity || !rating) {
+    if (!title || !price || !discountedPrice || !discount || !category || !slug || !sku || !description || !color || !material || !quantity || !rating) {
         return response.status(400).json({ error: "Please fill all required fields" });
     }
 
@@ -55,6 +58,9 @@ export const addSingleProduct = async (request, response) => {
         const newProduct = await Product.create({
             title,
             price,
+            discountedPrice,
+            discount,
+            newArrival,
             category,
             slug,
             sku,
