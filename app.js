@@ -22,6 +22,7 @@ import FaqRouter from "./routes/faq.routes.js"
 
 const server = express();
 server.use(express.json());
+server.use(express.urlencoded({ extended: true }))   //For form data
 dotenv.config();
 server.use(cookieParser());
 server.use(express.static("./"))
@@ -69,6 +70,7 @@ const categoryPictureStorage = multer.diskStorage({
 const productPictureUpload = multer({ storage: productPictureStorage })
 const profilePictureUpload = multer({ storage: profilePictureStorage });
 const categoryPictureUpload = multer({ storage: categoryPictureStorage });
+const textUpload = multer();
 
 const PORT = process.env.PORT;
 
@@ -85,7 +87,7 @@ server.use("/api/auth", profilePictureUpload.single("profilePic"), AuthRoute)
 server.use("/api/products",productPictureUpload.single("productPic"), ProductRouter);
 server.use("/api/categories", categoryPictureUpload.single("categoryPic"), CategoryRouter);
 server.use("/api/new-arrivals", NewArrivalsRouterAll)
-server.use("/api/faqs", FaqRouter)
+server.use("/api/faqs", textUpload.none(), FaqRouter)
 
 
 // server.use("/api/colors", ColorRouter)

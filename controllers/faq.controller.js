@@ -5,20 +5,20 @@ export const createFaq = async (req, res) => {
   try {
     const { question, answer } = req.body;
 
-    if (!answer || !question) {
-      return res.status(400).json({ message: 'Answer and question are required.' });
+    if (!question || !answer) {
+      return res.status(400).send({ message: 'Answer and question are required.' });
     }
 
     const newFaq = new Faq({
-       answer,
-      question
+      question,
+      answer
     });
 
     // Save the FAQ to the database
     const savedFaq = await newFaq.save();
-    res.status(201).json(savedFaq);
+    res.status(201).send(savedFaq);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to create FAQ', error });
+    res.status(500).send({ message: 'Failed to create FAQ', error });
   }
 };
 
