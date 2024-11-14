@@ -13,15 +13,11 @@ import UserRoute from "./routes/user.routes.js";
 import AuthRoute from "./routes/auth.routes.js"
 import ProductRouter from "./routes/product.routes.js";
 import CategoryRouter from "./routes/category.routes.js";
+import NewArrivalsRouterAll from "./routes/newArrivals.routes.js"
+import FaqRouter from "./routes/faq.routes.js"
 
-// import NewArrivalsRouter from "./routes/newArrivals.routes.js";
-// import TopSellersRouter from "./routes/topSellers.routes.js";
 // import ContactRouter from "./routes/contact.routes.js";
 // import CommonRouter from "./routes/commonPage.routes.js"
-// import FaqRouter from "./routes/faq.routes.js"
-// import NewArrivalsRouterAll from "./routes/newArrivalsAll.routes.js"
-// import TopSellerRouterAll from "./routes/topSellersAll.routes.js"
-// import SizeRouter from "./routes/size.routes.js"
 // import ColorRouter from "./routes/color.routes.js"
 
 const server = express();
@@ -88,16 +84,13 @@ server.use("/api/users", UserRoute);
 server.use("/api/auth", profilePictureUpload.single("profilePic"), AuthRoute)
 server.use("/api/products",productPictureUpload.single("productPic"), ProductRouter);
 server.use("/api/categories", categoryPictureUpload.single("categoryPic"), CategoryRouter);
+server.use("/api/new-arrivals", NewArrivalsRouterAll)
+server.use("/api/faqs", FaqRouter)
 
 
 // server.use("/api/colors", ColorRouter)
-// server.use("/api/new-arrivals", NewArrivalsRouter);
-// server.use("/api/top-sellers", TopSellersRouter);
 // server.use("/api/contact", ContactRouter);
-// server.use("/api/faq", FaqRouter)
 // server.use("/api/common-page", CommonRouter)
-// server.use("/api/new-arrivals-all", NewArrivalsRouterAll)
-// server.use("/api/top-sellers-all", TopSellerRouterAll)
 
 
 
