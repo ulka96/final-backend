@@ -54,8 +54,20 @@ export const getBlogById = async (req, res) => {
 // Update a blog post by ID
 export const updateBlog = async (req, res) => {
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedBlog) return res.status(404).json({ message: 'Blog not found' });
+    const { id } = req.params;
+    const { title, content, image, videoUrl } = req.body;
+    if (!title || !content) {
+      return res.status(400).json({ message: 'Title and content are required.' });
+    }
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      { title, content },
+      { new: true, runValidators: true }  
+    );
+    // Check if the FAQ exists
+    if (!updatedBlog) {
+      return res.status(404).json({ message: 'Blog not found.' });
+    }
     res.status(200).json(updatedBlog);
   } catch (error) {
     res.status(500).json({ message: 'Failed to update blog', error });
