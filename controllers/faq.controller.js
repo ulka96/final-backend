@@ -23,7 +23,6 @@ export const createFaq = async (req, res) => {
 };
 
 
-
 // Get all FAQs
 export const getFaq = async (req, res) => {
     try {
