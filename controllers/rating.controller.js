@@ -1,7 +1,7 @@
 import Product from "../models/product.model.js";
 
 export const addRating = async (req, res) => {
-    const { productId, rating, comment, userId } = req.body; // Assume userId is sent in request body
+    const { productId, rating, userId } = req.body; // Assume userId is sent in request body
   
     try {
       const product = await Product.findById(productId);
@@ -14,7 +14,6 @@ export const addRating = async (req, res) => {
       product.ratings.push({
         user: userId, // Use userId from request body
         rating,
-        comment,
       });
   
       await product.save();
@@ -48,3 +47,5 @@ export const getProductRating = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
+
