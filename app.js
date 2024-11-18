@@ -16,6 +16,7 @@ import CategoryRouter from "./routes/category.routes.js";
 import NewArrivalsRouterAll from "./routes/newArrivals.routes.js"
 import FaqRouter from "./routes/faq.routes.js"
 import BlogRouter from "./routes/blog.routes.js"
+import RateRoute from "./routes/rating.routes.js"
 
 // import ContactRouter from "./routes/contact.routes.js";
 // import CommonRouter from "./routes/commonPage.routes.js"
@@ -90,7 +91,7 @@ server.use("/api/categories", categoryPictureUpload.single("categoryPic"), Categ
 server.use("/api/new-arrivals", NewArrivalsRouterAll)
 server.use("/api/faqs", textUpload.none(), FaqRouter)
 server.use("/api/blogs",textUpload.none(), BlogRouter)
-
+server.use("/api/rate",textUpload.none(), RateRoute)
 
 // server.use("/api/colors", ColorRouter)
 // server.use("/api/contact", ContactRouter);

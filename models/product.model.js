@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const ProductSchema = mongoose.Schema({
     title: {
         type: String,
@@ -51,14 +50,17 @@ const ProductSchema = mongoose.Schema({
         type: Array,
         required: true, 
     },
-    rating: {
-        type: String,
-        required: true, 
-    },
     newArrival: {
         type: Boolean,
         required: false,
-      },
+    },
+    ratings: [
+        {
+          user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+          rating: { type: Number, required: true },
+          comment: { type: String },
+        },
+      ],
 
 })
 
