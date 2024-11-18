@@ -2,11 +2,30 @@ import Product from "../models/product.model.js"
 import Color from "../models/color.model.js"
 
 //Get all products
+// Get all products, optionally filter by category
 export const getProducts = async (request, response) => {
-    const products = await Product.find()
-    if (!products) return response.status(404).send({ error: "Something Went wrong" })
-    return response.status(200).send(products)
-}
+  try {
+      const { category } = request.query;  // Get the category from query params (optional)
+
+      let filter = {};  // Default filter, no category
+
+      // If a category is specified, add it to the filter
+      if (category) {
+          filter.category = category;
+      }
+
+      const products = await Product.find(filter);  // Fetch products based on the filter
+
+      if (!products || products.length === 0) {
+          return response.status(404).send({ error: "No products found" });
+      }
+
+      return response.status(200).send(products);
+  } catch (error) {
+      return response.status(500).send({ error: "Server error" });
+  }
+};
+
 
 //get a single product
 export const getSingleProduct = async (request, response) => {

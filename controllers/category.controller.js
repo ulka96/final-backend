@@ -89,3 +89,4 @@ export const deleteCategory = async (request, response) => {
     response.status(500).json({ message: error.message });
   }
 };
+
