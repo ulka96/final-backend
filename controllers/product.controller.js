@@ -31,7 +31,9 @@ export const getProducts = async (request, response) => {
 export const getSingleProduct = async (request, response) => {
     const { productId } = request.params
     const singleproduct = await Product.findById(productId)
-    if (!singleproduct) return response.status(404).send({ error: "Something went wrong" })
+  if (!singleproduct) return response.status(404).send({ error: "Something went wrong" })
+  
+  
     return response.status(200).send(singleproduct)
 }
 

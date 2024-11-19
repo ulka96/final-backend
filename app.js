@@ -83,7 +83,6 @@ server.use(cors({
 })
 );
 
-
 // Routes
 server.use("/api/users", UserRoute);
 server.use("/api/auth", profilePictureUpload.single("profilePic"), AuthRoute)
@@ -94,6 +93,7 @@ server.use("/api/faqs", textUpload.none(), FaqRouter)
 server.use("/api/blogs",textUpload.none(), BlogRouter)
 server.use("/api/rate",textUpload.none(), RateRoute)
 server.use("/api/cart", CartRouter)
+
 
 // server.use("/api/colors", ColorRouter)
 // server.use("/api/contact", ContactRouter);
