@@ -11,7 +11,8 @@ const reviewSchema = mongoose.Schema({
         required: true,
     },
     rating: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Rating",
         required: true,
     },
     comment: {

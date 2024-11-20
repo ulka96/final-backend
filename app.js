@@ -18,6 +18,7 @@ import FaqRouter from "./routes/faq.routes.js"
 import BlogRouter from "./routes/blog.routes.js"
 import RateRoute from "./routes/rating.routes.js"
 import CartRouter from "./routes/cart.routes.js"
+import ReviewRoute from "./routes/review.routes.js"
 
 // import ContactRouter from "./routes/contact.routes.js";
 // import CommonRouter from "./routes/commonPage.routes.js"
@@ -93,6 +94,7 @@ server.use("/api/faqs", textUpload.none(), FaqRouter)
 server.use("/api/blogs",textUpload.none(), BlogRouter)
 server.use("/api/rate",textUpload.none(), RateRoute)
 server.use("/api/cart", CartRouter)
+server.use("/api/reviews", ReviewRoute);
 
 
 // server.use("/api/colors", ColorRouter)
