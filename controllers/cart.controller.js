@@ -1,26 +1,32 @@
 import Cart from "../models/cart.model.js"
 
 // Get cart for a user
-export const getCart = async (req, res) => {
+export const getCart = async (request, response) => {
   try {
-    const userId = req.user.id; 
+    const userId = request.id; 
+
     const cart = await Cart.findOne({ userId });
-
+    
+    console.log(cart)
     if (!cart) {
-      return res.status(404).json({ message: "Cart not found" });
+      return response.status(404).json({ message: "Cart not found" });
     }
-
-    res.json(cart);
+    
+    response.json(cart);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching cart", error });
+    response.status(500).json({ message: "Error fetching cart", error });
   }
+ 
 };
+
 
 // Add item to cart
 export const addToCart = async (req, res) => {
   try {
     const { product, quantity, material } = req.body;
-    const userId = req.user.id;
+    // const userId = req.user.id;
+
+    const userId = req.id; 
 
     let cart = await Cart.findOne({ userId });
 
@@ -47,7 +53,9 @@ export const addToCart = async (req, res) => {
 export const updateCartItem = async (req, res) => {
   try {
     const { itemId, quantity } = req.body;
-    const userId = req.user.id;
+    // const userId = req.user.id;
+
+    const userId = req.id; 
 
     const cart = await Cart.findOne({ userId });
     if (!cart) {
@@ -72,7 +80,9 @@ export const updateCartItem = async (req, res) => {
 export const removeFromCart = async (req, res) => {
   try {
     const { itemId } = req.body;
-    const userId = req.user.id;
+    // const userId = req.user.id;
+
+    const userId = req.id; 
 
     const cart = await Cart.findOne({ userId });
     if (!cart) {
@@ -91,7 +101,9 @@ export const removeFromCart = async (req, res) => {
 // Clear cart
 export const clearCart = async (req, res) => {
   try {
-    const userId = req.user.id;
+    // const userId = req.user.id;
+
+    const userId = req.id; 
 
     const cart = await Cart.findOne({ userId });
     if (!cart) {
